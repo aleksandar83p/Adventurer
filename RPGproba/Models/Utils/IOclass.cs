@@ -3,10 +3,7 @@
 namespace Adventurer.Models.Utils
 {
     class IOclass
-    {
-        //public int Min { get; set; }
-        //public int Max { get; set; }
-
+    {     
         public static int ReadNumber()
         {
             int num;
@@ -17,47 +14,28 @@ namespace Adventurer.Models.Utils
             return num;
         }
 
-        public static string ReadText()
-        {
-            string text = "";
-            while(text == null || text.Equals(""))
-            {
-                text = Console.ReadLine();
-            }
-            return text;
-        }
+        public static int ChooseWeaponNumber()
+        {           
+             int num;
+             bool IsConversionSuccessful = Int32.TryParse(Console.ReadLine(), out num);
 
-        public static int ChooseNumber()
-        {
-           
-                int num;
-                Console.WriteLine("Pocetak: Please input number between 1 to 6");
-           
-                bool IsConversionSuccessful = Int32.TryParse(Console.ReadLine(), out num);
-
-                if (IsConversionSuccessful)
-                {
-                    if (num >= 1 && num <= 6)
-                    {
-                        return num;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Trazeni broj: Please input number between 1 to 6");
-                        return 0;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Nije unesen int: Please input number between 1 to 6");
-                    return 0;
-                } 
-                  
-
-        }
-           
-
+             if (IsConversionSuccessful)
+             {
+                 if (num >= 1 && num <= 6)
+                 {
+                    return num;
+                 }
+                 else
+                 {
+                    Console.WriteLine("Please input number between 1 to 6");
+                 return 0;
+                 }
+             }
+             else
+             {
+                 Console.WriteLine("Please input number between 1 to 6");
+                 return 0;
+             }                  
+        }        
     }
-
-
 }

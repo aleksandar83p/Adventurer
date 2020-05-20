@@ -2,13 +2,13 @@
 
 namespace Adventurer.Models
 {
-    public class FighterClass : BaseClass
+    public class Hero : BaseClass
     {        
         public int Stamina { get; set; }
 
         Random random = new Random();
         static int id = 1;
-        public FighterClass(string name)
+        public Hero(string name)
         {
             this.Id = id++;
             this.Name = name;
@@ -17,6 +17,11 @@ namespace Adventurer.Models
             this.DamageCoefficient = 3;
             this.Stamina = random.Next(10, 20);
             this.IsAlive = true;
+        }
+
+        public void Stats()
+        {
+            Console.WriteLine($"{this.Name} - Health Points: {this.HealthPoints} - Weapon: {this.Weapon}");
         }
 
         

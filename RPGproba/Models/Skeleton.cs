@@ -17,6 +17,5 @@ namespace Adventurer.Models
             this.DamageCoefficient = 1;
             this.IsAlive = true;
         }
-       
     }
 }

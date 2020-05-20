@@ -157,6 +157,5 @@ namespace Adventurer.Models
                     break;
             }
         }
-      
     }
 }
