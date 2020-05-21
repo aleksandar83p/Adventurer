@@ -17,6 +17,7 @@ namespace Adventurer.Models
             this.Weapon = (Weapon)random.Next(0, 6);
             this.DamageCoefficient = 2;
             this.Stamina = random.Next(10, 20);
+            this.CharacterType = CharacterType.Minotaur;
             this.IsAlive = true;
         }
 

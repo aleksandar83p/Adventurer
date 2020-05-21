@@ -9,7 +9,7 @@ namespace Adventurer.Models.Utils
             int num;
             while(Int32.TryParse(Console.ReadLine(), out num) == false)
             {
-                Console.WriteLine("Error - please try again.");
+                Console.WriteLine("Error - please enter number.");
             }
             return num;
         }

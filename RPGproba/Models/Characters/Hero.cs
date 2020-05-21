@@ -16,12 +16,15 @@ namespace Adventurer.Models
             this.Weapon = (Weapon)random.Next(0, 6);
             this.DamageCoefficient = 3;
             this.Stamina = random.Next(10, 20);
+            this.CharacterType = CharacterType.Hero;
             this.IsAlive = true;
         }
 
-        public void Stats()
+        public override void Stats()
         {
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine($"{this.Name} - Health Points: {this.HealthPoints} - Weapon: {this.Weapon}");
+            Console.ResetColor();
         }
 
         

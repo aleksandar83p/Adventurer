@@ -15,7 +15,9 @@ namespace Adventurer.Models
             this.HealthPoints = random.Next(1, 10); 
             this.Weapon = (Weapon)random.Next(0, 6);
             this.DamageCoefficient = 1;
+            this.CharacterType = CharacterType.Skeleton;
             this.IsAlive = true;
+
         }
     }
 }

@@ -2,13 +2,13 @@
 
 namespace Adventurer.Models
 {
-    class ClericClass : BaseClass
+    class Cleric : BaseClass
     {
         public int Mana { get; set; }      
 
         Random random = new Random();
         static int id = 1;
-        public ClericClass(string name)
+        public Cleric(string name)
         {
             this.Id = id++;
             this.Name = name;
@@ -17,6 +17,7 @@ namespace Adventurer.Models
             this.DamageCoefficient = 3;            
             this.Mana = random.Next(20, 30);
             this.IsAlive = true;
+            this.CharacterType = CharacterType.Cleric;
         }
 
         public void Heal(BaseClass friend, int maxHP)

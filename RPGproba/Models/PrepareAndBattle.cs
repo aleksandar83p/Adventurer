@@ -8,11 +8,11 @@ namespace Adventurer.Models
     public static class PrepareAndBattle
     {
 
-        public static void PopulateMonsterList(List<BaseClass> monsterList, MonsterType monster)
+        public static void PopulateMonsterList(List<BaseClass> monsterList, CharacterType monster)
         {
             Random random = new Random();
 
-            if (monster == MonsterType.Skeleton)
+            if (monster == CharacterType.Skeleton)
             {
                 int SkeletonNumber = random.Next(3, 6);
 
@@ -22,7 +22,7 @@ namespace Adventurer.Models
                     monsterList.Add(s);
                 }
             }
-            else if (monster  == MonsterType.Minotaur)
+            else if (monster  == CharacterType.Minotaur)
             {
                 int MinotaurNumber = random.Next(2, 3);
 
@@ -34,7 +34,7 @@ namespace Adventurer.Models
             }          
         }
 
-        public static void ChooseAWeapon(BaseClass hero)
+        public static void ChooseAWeapon(Hero hero)
         {
             int number = 0;
             do
@@ -69,35 +69,39 @@ namespace Adventurer.Models
             }
         }
 
-        public static void Battle(BaseClass hero, List<BaseClass> mons)
-        {
-            Console.WriteLine($"{hero.Name}, Health Points: {hero.HealthPoints}");
-
+        public static void Battle(Hero hero, List<BaseClass> mons)
+        {           
             bool IsAlive = true;
             int round = 1;
             while (IsAlive)
-            {                
-                Console.WriteLine($"**********Round {round}*********");                   
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Round {round} VS {mons[0].CharacterType}s");
+                Console.ResetColor();
+                
+                hero.Stats();
 
-                Console.WriteLine("Choose who to attack");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Choose who to attack:");
+                Console.ResetColor();
                 foreach (var mon in mons)
                 {
                     if (mon.IsAlive)
                     {
-                        Console.WriteLine($"Press {mon.Id} to attack \"{mon.Name}\" (HP: {mon.HealthPoints}, Weapon: {mon.Weapon})");
+                        Console.WriteLine($"Press {mon.Id} to attack \"{mon.Name}\" (HP: {mon.HealthPoints}, Weapon: {mon.Weapon})");                       
                     }
 
                     if (!mon.IsAlive)
-                    {
-                        Console.WriteLine($"\"{mon.Name}\" is dead");
+                    {                        
+                        Console.WriteLine($"\"{mon.Name}\" is dead.");                        
                     }
                 }
 
                 var keyPressed = IOclass.ReadNumber();
 
                 if (keyPressed <= 0 || keyPressed > mons.Count)
-                {
-                    Console.WriteLine("You have entered wrong number. Please press number between 1 to " + mons.Count);
+                {                    
+                    Console.WriteLine($"You have entered wrong number. Please press number between 1 to {mons.Count}.");                   
                     round--;
                 }
                 else
@@ -109,11 +113,7 @@ namespace Adventurer.Models
                             if (keyPressed - 1 == i)
                             {
                                 hero.Attack(mons[i]);
-                            }
-                            else
-                            {
-                                Console.WriteLine($"{mons[0].Name} is dead");
-                            }
+                            }                         
                         }
                         foreach (var mon in mons)
                         {
@@ -125,7 +125,9 @@ namespace Adventurer.Models
                     }
                     else
                     {
-                        Console.WriteLine($"{mons[0].Name} is already dead. Choose next enemy");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"{mons[keyPressed-1].Name} is already dead. Choose other enemy.");
+                        Console.ResetColor();
                         round--;
                     }
                 }
