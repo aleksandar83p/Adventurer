@@ -38,7 +38,7 @@ namespace Adventurer.Models
         public static void GameOver()
         {
             Console.WriteLine("GAME OVER");
-            Console.WriteLine("Please try again. Each new game gives different amount of enemies.\n Also, the hero a different amount of health points.");
+            Console.WriteLine("Please try again. Each new game gives different amount of enemies.\nAlso, the hero a different amount of health points.");
         }
     }
 }

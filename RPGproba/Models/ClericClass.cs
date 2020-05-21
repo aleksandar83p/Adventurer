@@ -21,7 +21,9 @@ namespace Adventurer.Models
 
         public void Heal(BaseClass friend, int maxHP)
         {
+            int maxHp = friend.HealthPoints;
             int heal = random.Next(5, 15);
+
             if (friend.IsAlive)
             {              
                 if (Mana >= 3)
@@ -30,9 +32,9 @@ namespace Adventurer.Models
                     this.Mana = this.Mana - 3;
                     Console.WriteLine($"{this.Name} use heal on {friend.Name} and heal {heal} health points");
 
-                    if(friend.HealthPoints > maxHP)
+                    if(friend.HealthPoints > maxHp)
                     {
-                        friend.HealthPoints = maxHP;
+                        friend.HealthPoints = maxHp;
                     }
                 }
                 else

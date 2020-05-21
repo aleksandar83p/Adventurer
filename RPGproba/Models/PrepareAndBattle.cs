@@ -8,28 +8,30 @@ namespace Adventurer.Models
     public static class PrepareAndBattle
     {
 
-        public static void PopulateMonsterListSkeletons(List<BaseClass> monsterList)
+        public static void PopulateMonsterList(List<BaseClass> monsterList, MonsterType monster)
         {
             Random random = new Random();
-            int SkeletonNumber = random.Next(3, 6);
 
-            for (int i = 0; i < SkeletonNumber; i++)
+            if (monster == MonsterType.Skeleton)
             {
-                Skeleton s = new Skeleton();
-                monsterList.Add(s);
+                int SkeletonNumber = random.Next(3, 6);
+
+                for (int i = 0; i < SkeletonNumber; i++)
+                {
+                    Skeleton s = new Skeleton();
+                    monsterList.Add(s);
+                }
             }
-        }
-
-        public static void PopulateMonsterListMinotaurs(List<BaseClass> monsterList)
-        {
-            Random random = new Random();
-            int MinotaurNumber = random.Next(2, 3);
-
-            for (int i = 0; i < MinotaurNumber; i++)
+            else if (monster  == MonsterType.Minotaur)
             {
-                Minotaur s = new Minotaur();
-                monsterList.Add(s);
-            }
+                int MinotaurNumber = random.Next(2, 3);
+
+                for (int i = 0; i < MinotaurNumber; i++)
+                {
+                    Minotaur s = new Minotaur();
+                    monsterList.Add(s);
+                }
+            }          
         }
 
         public static void ChooseAWeapon(BaseClass hero)
@@ -69,13 +71,15 @@ namespace Adventurer.Models
 
         public static void Battle(BaseClass hero, List<BaseClass> mons)
         {
-
             Console.WriteLine($"{hero.Name}, Health Points: {hero.HealthPoints}");
 
             bool IsAlive = true;
+            int round = 1;
             while (IsAlive)
-            {
-                Console.WriteLine("Izaberi opcije");
+            {                
+                Console.WriteLine($"**********Round {round}*********");                   
+
+                Console.WriteLine("Choose who to attack");
                 foreach (var mon in mons)
                 {
                     if (mon.IsAlive)
@@ -94,6 +98,7 @@ namespace Adventurer.Models
                 if (keyPressed <= 0 || keyPressed > mons.Count)
                 {
                     Console.WriteLine("You have entered wrong number. Please press number between 1 to " + mons.Count);
+                    round--;
                 }
                 else
                 {
@@ -121,53 +126,31 @@ namespace Adventurer.Models
                     else
                     {
                         Console.WriteLine($"{mons[0].Name} is already dead. Choose next enemy");
+                        round--;
                     }
                 }
 
-
+                
                 if (hero.HealthPoints <= 0)
                 {
                     Story.GameOver();
                     IsAlive = false;
                 }
-
-                var anyoneAlive = false;
-
-                foreach (var monster in mons)
+                else
                 {
-                    if (monster.IsAlive)
-                        anyoneAlive = true;
-                }
-
-
-                if (!anyoneAlive)
-                {
-                    IsAlive = false;
-                }
-
-                PrepareAndBattle.Battle(hero, mons);
-
-                if (hero.HealthPoints <= 0)
-                {
-                    Story.GameOver();
-                    IsAlive = false;
-                }
-
-                var anyoneAliveS = false;
-                foreach (var monster in mons)
-                {
-                    if (monster.IsAlive)
+                    var anyoneAlive = false;
+                    foreach (var monster in mons)
                     {
-                        anyoneAliveS = true;
+                        if (monster.IsAlive)
+                            anyoneAlive = true;
+                    }
+
+                    if (!anyoneAlive)
+                    {
+                        IsAlive = false;
                     }
                 }
-
-
-                if (!anyoneAliveS)
-                {
-                    Story.WinOverSkeletons(hero, mons);
-                    anyoneAliveS = false;
-                }
+                round++;
             }
         }
     }

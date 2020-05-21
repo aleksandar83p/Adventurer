@@ -15,10 +15,10 @@ namespace Adventurer
         private static void Game()
         {
             List<BaseClass> SkeletonsList = new List<BaseClass>();
-            PrepareAndBattle.PopulateMonsterListSkeletons(SkeletonsList);
+            PrepareAndBattle.PopulateMonsterList(SkeletonsList, MonsterType.Skeleton);
 
             List<BaseClass> MinotaursList = new List<BaseClass>();
-            PrepareAndBattle.PopulateMonsterListMinotaurs(MinotaursList);
+            PrepareAndBattle.PopulateMonsterList(MinotaursList, MonsterType.Minotaur);
 
             Console.WriteLine("What's your name");
             string name = Console.ReadLine();
@@ -30,16 +30,27 @@ namespace Adventurer
 
             Story.Start(hero, SkeletonsList);
 
-            PrepareAndBattle.Battle(hero, SkeletonsList);
+            if (hero.IsAlive)
+            {
+                PrepareAndBattle.Battle(hero, SkeletonsList);
+            }
 
-            Story.WinOverSkeletons(hero, MinotaursList);
+            if (hero.IsAlive)
+            {
+                Story.WinOverSkeletons(hero, MinotaursList);
+            }
 
-            PrepareAndBattle.Battle(hero, MinotaursList);
+            if (hero.IsAlive)
+            {
+                PrepareAndBattle.Battle(hero, MinotaursList);
+            }
 
-            Story.EndGame(hero);
-
+            if (hero.IsAlive)
+            {
+                Story.EndGame(hero);
+            }
+            
         }
-    }
-                   
+    }                   
 }
 

@@ -3,7 +3,6 @@
     public enum MonsterType
     {
         Skeleton,
-        Minotaur,
-        HeroFighter
+        Minotaur        
     }
 }
